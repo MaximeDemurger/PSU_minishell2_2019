@@ -70,8 +70,9 @@ int minishell(all_t *all, char **env)
         my_puterror(all->exe, ": Command not found.\n");
         all->exe = 0;
         exit(0);
-    } else
+    } else {
         wait(NULL);
+    }
     all->exe = 0;
     return 0;
 }

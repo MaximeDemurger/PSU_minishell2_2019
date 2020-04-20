@@ -49,11 +49,13 @@ char **set_env(all_t *all, char **env)
     int i = 0;
 
     if (tab_size(all->rules) > 3) {
-        my_puterror("setenv: ", "Too many arguments.");
+        my_putstr("setenv: Too many arguments.");
+        return 1;
     } else if (my_str_isalpha_num(all->rules[2]) < 0 &&
                 all->rules[2][my_strlen(all->rules[2])] == '\n') {
-        my_puterror("setenv: ", "Variable name must contain "
+        my_putstr("setenv: Variable name must contain "
                   "alphanumeric characters.\n");
+        return 1;
     } else
         new_env = otherwise(new_env, all);
     while (all->envcpy[i])
