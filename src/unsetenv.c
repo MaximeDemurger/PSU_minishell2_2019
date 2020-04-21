@@ -65,6 +65,10 @@ char **unset_env(all_t *all, char **env)
     int j = 0;
     char **dest = NULL;
 
+    if (all->rules[1] == NULL) {
+        my_putstr("unsetenv: Too few arguments.\n");
+        return dest;
+    }
     if (find_line(all) == 0)
         return all->envcpy;
     dest = malloc(sizeof(char *) * (tab_size(all->envcpy)));

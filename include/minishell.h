@@ -32,10 +32,12 @@ char *my_strcpy_n_take(char *dest, int n);
 char **my_str_to_word_array(char const *str, char sep);
 char *my_strcat_env(char *dest, char *src);
 int my_puterror(char const *str, char const *str2);
+int my_char_isalpha(char a);
 char *get_next_line(int fd);
 /* UTILS */
 
 link_t *get_path(char *str);
+char *line_formating(char *str);
 int open_shell(char **env);
 char **set_path(char **env, all_t *all);
 int exec_prg(all_t *all);

@@ -12,17 +12,6 @@
 #include <unistd.h>
 #include <signal.h>
 
-int cmd_check2(all_t *all)
-{
-    if (my_strncmp("setenv", all->rules[0], 3) == 0)
-        all->envcpy = set_env(all, all->envcpy);
-    else if (my_strncmp("unsetenv", all->rules[0], 3) == 0)
-        all->envcpy = unset_env(all, all->envcpy);
-    else
-        minishell(all, all->envcpy);
-    return 0;
-}
-
 int cmd_check(all_t *all)
 {
     int k = 0;
@@ -35,7 +24,8 @@ int cmd_check(all_t *all)
     }
     if (my_strncmp("env", all->rules[0], 3) == 0)
         print_env(all, all->envcpy);
-    cmd_check2(all);
+    else
+        minishell(all, all->envcpy);
     return (0);
 }
 
@@ -68,6 +58,7 @@ int open_shell(char **env)
             write(1, "$> ", 3);
         if ((all->exe = get_next_line(0)) == NULL)
             return 0;
+        all->exe = line_formating(all->exe);
         if (get_command_from_list(all) == 1)
             return 0;
         while (*all->rules)
