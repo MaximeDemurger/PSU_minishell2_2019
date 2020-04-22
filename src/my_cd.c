@@ -77,9 +77,6 @@ int principal_cd(all_t *all)
 
     if (chdir(all->rules[1]) == -1) {
         in = 1;
-        if (errno == EACCES) {
-            my_putstr("error: Permission denied.\n");
-        }
         if (errno == ENOENT) {
             my_putstr(all->rules[1]);
             my_putstr(": No such file or directory\n");
@@ -88,6 +85,8 @@ int principal_cd(all_t *all)
             my_putstr(all->rules[1]);
             my_putstr(": Not a directory\n");
         }
+        if (errno == EACCES)
+            my_putstr("error: Permission denied.\n");
     }
     return in;
 }
