@@ -16,8 +16,6 @@ int check_error(int status)
             my_putstr("Floating exception");
         else
             my_putstr(convert_to_string(WTERMSIG(status)));
-        if (WCOREDUMP(status) == 0)
-            my_putstr(" (core dumped)");
         write(1, "\n", 1);
         return 1;
     }
