@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "minishell.h"
-#include "gnl.h"
 #include <unistd.h>
 #include <signal.h>
 
