@@ -43,7 +43,7 @@ char **otherwise(char **new_env, all_t *all)
     return new_env;
 }
 
-char **set_env(all_t *all, char **env)
+char **set_env(all_t *all)
 {
     char **new_env = NULL;
     int i = 0;

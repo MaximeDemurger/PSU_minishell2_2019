@@ -10,7 +10,7 @@
 
 int my_printf(char *str, ...);
 
-int print_env(all_t *all, char **env)
+int print_env(all_t *all)
 {
     int i = 0;
 

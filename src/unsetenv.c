@@ -59,7 +59,7 @@ char *in_loop(all_t *all, int *i, char **dest, int j)
     return dest[j];
 }
 
-char **unset_env(all_t *all, char **env)
+char **unset_env(all_t *all)
 {
     int i = 0;
     int j = 0;

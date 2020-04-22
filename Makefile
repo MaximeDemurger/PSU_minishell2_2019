@@ -27,10 +27,13 @@ UTILS	=		./src/utils/free_all.c \
 	  			./src/utils/my_strncat.c \
 	  			./src/utils/tab_size.c \
 				./src/utils/my_char_isalpha.c \
+				./src/utils/convert.c \
+				./src/utils/my_revstr.c \
 
 
 SRCS	= 		./src/get_next_line.c \
 	  			./src/main.c \
+				./src/segfault.c \
 	  			./src/minishell.c \
 				./src/line_formating.c \
 	  			./src/my_cd.c \

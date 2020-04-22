@@ -34,19 +34,22 @@ char *my_strcat_env(char *dest, char *src);
 int my_puterror(char const *str, char const *str2);
 int my_char_isalpha(char a);
 char *get_next_line(int fd);
+char *convert_to_string(int nb);
+char *my_revstr(char *str);
 /* UTILS */
 
 link_t *get_path(char *str);
+int check_error(int status);
 char *line_formating(char *str);
 int open_shell(char **env);
 char **set_path(char **env, all_t *all);
 int exec_prg(all_t *all);
 char *tild_home(char **env);
-char **set_env(all_t *all, char **env);
-char **unset_env(all_t *all, char **env);
-int print_env(all_t *all, char **env);
+char **set_env(all_t *all);
+char **unset_env(all_t *all);
+int print_env(all_t *all);
 int my_cd(all_t *all, char **env);
-int minishell(all_t *, char **env);
+int minishell(all_t *);
 
 
 #endif /* LIBMY_H */

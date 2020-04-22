@@ -21,7 +21,6 @@ char *without_exec(char *str)
     if (str == NULL)
         return NULL;
     dest = malloc(sizeof(char) * (my_strlen(str) - 1));
-
     while (str[j] != '\0') {
         dest[i] = str[j];
         i++;
@@ -54,24 +53,40 @@ int exec_prg(all_t *all)
     return 0;
 }
 
-int minishell(all_t *all, char **env)
+int execve_function(all_t *all)
 {
     int i = 0;
 
-    if (fork() == 0) {
-        while (all->arr[i] != 0) {
-            all->path_exe = my_strcat(all->arr[i], all->rules[0]);
-            if (exe_right(all, i) == 1 || exec_prg(all) == 1) {
-                exit(1);
-            }
-            free(all->path_exe);
-            i++;
+    while (all->arr[i] != 0) {
+        all->path_exe = my_strcat(all->arr[i], all->rules[0]);
+        if (exe_right(all, i) == 1 || exec_prg(all) == 1) {
+            return 1;
         }
-        my_puterror(all->exe, ": Command not found.\n");
-        all->exe = 0;
-        exit(0);
+        free(all->path_exe);
+        i++;
+    }
+    my_putstr(all->exe);
+    my_putstr(": Command not found.\n");
+    all->exe = 0;
+    return 0;
+}
+
+int minishell(all_t *all)
+{
+    int returned = 0;
+    int wstatus = 0;
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        returned = execve_function(all);
+        if (returned == 0)
+            exit(0);
+        else
+            exit(1);
     } else {
-        wait(NULL);
+        pid = waitpid(pid, &wstatus, 0);
+        if (check_error(wstatus) == 1)
+            return 1;
     }
     all->exe = 0;
     return 0;

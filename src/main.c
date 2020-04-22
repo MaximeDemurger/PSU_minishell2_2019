@@ -11,7 +11,7 @@
 #include "gnl.h"
 #include <unistd.h>
 
-int main(int ac, char **av, char **env)
+int main(int ac, __attribute__((unused)) char **av, char **env)
 {
     if (ac > 1)
         return (84);

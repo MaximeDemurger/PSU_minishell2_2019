@@ -14,18 +14,15 @@
 
 int cmd_check(all_t *all)
 {
-    int k = 0;
-
     if (my_strncmp("cd", all->rules[0], 2) == 0)
         my_cd(all, all->envcpy);
-    if (my_strncmp("exit", all->rules[0], 4) == 0) {
+    else if (my_strncmp("exit", all->rules[0], 4) == 0) {
         my_putstr("exit\n");
         exit(0);
-    }
-    if (my_strncmp("env", all->rules[0], 3) == 0)
-        print_env(all, all->envcpy);
+    } else if (my_strncmp("env", all->rules[0], 3) == 0)
+        print_env(all);
     else
-        minishell(all, all->envcpy);
+        minishell(all);
     return (0);
 }
 
