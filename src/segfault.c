@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include "minishell.h"
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <signal.h>
 
 int check_error(int status)
