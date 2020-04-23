@@ -32,6 +32,7 @@ UTILS	=		./src/utils/free_all.c \
 
 
 SRCS	= 		./src/get_next_line.c \
+				./src/line_separator_formating.c \
 	  			./src/main.c \
 				./src/segfault.c \
 	  			./src/minishell.c \

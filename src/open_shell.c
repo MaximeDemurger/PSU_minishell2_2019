@@ -55,6 +55,7 @@ int open_shell(char **env)
         if ((all->exe = get_next_line(0)) == NULL)
             return 0;
         all->exe = line_formating(all->exe);
+        all->exe = line_separator(all->exe);
         if (get_command_from_list(all) == 1)
             return 0;
         while (*all->rules)

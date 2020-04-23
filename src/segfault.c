@@ -16,10 +16,10 @@
 int check_error(int status)
 {
     if (WIFSIGNALED(status)) {
-        if (WTERMSIG(status) == 8)
-            my_putstr("Floating exception");
-        else
+        if (WTERMSIG(status) != 8)
             my_putstr(convert_to_string(WTERMSIG(status)));
+        else
+            my_putstr("Floating exception");
         if (WCOREDUMP(status) == 0)
             my_putstr(" (core dumped)");
         write(1, "\n", 1);

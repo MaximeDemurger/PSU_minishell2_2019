@@ -39,6 +39,7 @@ char *my_revstr(char *str);
 /* UTILS */
 
 link_t *get_path(char *str);
+char *line_separator(char *str);
 int check_error(int status);
 char *line_formating(char *str);
 int open_shell(char **env);

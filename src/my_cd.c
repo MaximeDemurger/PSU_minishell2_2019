@@ -11,11 +11,15 @@
 #include <stdlib.h>
 #include "minishell.h"
 
-int cd_less(char **env)
+int cd_less(char **env, int passed)
 {
     int i = 0;
     char *str = NULL;
 
+    if (passed == 0) {
+        my_putstr(": No such file or directory.\n");
+        return 0;
+    }
     while (env[i]) {
         if (my_strncmp("OLDPWD", env[i], 6) == 0) {
             str = my_strcpy_n_take(env[i], 7);
@@ -71,7 +75,7 @@ char **modify_pwd(char **env)
     return env;
 }
 
-int principal_cd(all_t *all)
+int principal_cd(all_t *all, int *passed)
 {
     int in = 0;
 
@@ -88,6 +92,7 @@ int principal_cd(all_t *all)
         if (errno == EACCES)
             my_putstr("error: Permission denied.\n");
     }
+    *passed = 1;
     return in;
 }
 
@@ -95,12 +100,14 @@ int my_cd(all_t *all, char **env)
 {
     errno = 0;
     int in = 0;
+    static int passed = 0;
 
-    if (all->rules[1][0] == '~' && all->rules[1][1] == '\0')
+    if (all->rules[1][0] == '~' && all->rules[1][1] == '\0') {
         chdir(tild_home(env));
-    else if (all->rules[1][0] == '-' && all->rules[1][1] == '\0')
-        cd_less(env);
-    else if (principal_cd(all) == 1)
+        passed = 1;
+    } else if (all->rules[1][0] == '-' && all->rules[1][1] == '\0')
+        cd_less(env, passed);
+    else if (principal_cd(all, &passed) == 1)
         in = 1;
     if (in == 0)
         all->envcpy = modify_pwd(env);
