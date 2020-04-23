@@ -7,7 +7,7 @@
 
 NAME	= mysh
 
-CC	= gcc
+CC	= gcc -g
 
 RM	= rm -f
 

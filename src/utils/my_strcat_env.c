@@ -13,7 +13,7 @@ char *my_strcat_env(char *dest, char *src)
 {
     int	i = 0;
     int	j = 0;
-    char *str = malloc(sizeof(str) * (my_strlen(dest) + my_strlen(src) + 1));
+    char *str = malloc(sizeof(str) * (my_strlen(dest) + my_strlen(src) + 2));
 
     while (dest[i] != 0) {
         str[i] = dest[i];
@@ -24,6 +24,6 @@ char *my_strcat_env(char *dest, char *src)
         j++;
         i++;
     }
-    str[i] = 0;
+    str[i] = '\0';
     return (str);
 }

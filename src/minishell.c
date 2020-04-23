@@ -53,11 +53,11 @@ int exec_prg(all_t *all)
         all->rules[0] = without_exec(all->rules[0]);
         if (execve(all->rules[0], all->rules, all->envcpy) == -1) {
             if (errno == EACCES) {
-                my_putchar('./');
+                my_putstr("./");
                 my_putstr(all->rules[0]);
                 my_putstr(": Permission denied.\n");
             } else if (errno == 8) {
-                my_putchar('./');
+                my_putstr("./");
                 my_putstr(all->rules[0]);
                 my_putstr(": Exec format error. Wrong Architecture.\n");
             }

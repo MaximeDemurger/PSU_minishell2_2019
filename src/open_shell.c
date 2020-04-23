@@ -20,6 +20,10 @@ int cmd_check(all_t *all)
         exit(0);
     } else if (my_strncmp("env", all->rules[0], 3) == 0)
         print_env(all);
+    else if (my_strncmp("setenv", all->rules[0], 6) == 0)
+        all->envcpy = set_env(all);
+    else if (my_strncmp("unsetenv", all->rules[0], 8) == 0)
+        all->envcpy = unset_env(all);
     else
         minishell(all);
     return (0);
@@ -45,6 +49,7 @@ int get_command_from_list(all_t *all)
 int open_shell(char **env)
 {
     all_t *all = malloc(sizeof(all_t));
+    int i = 0;
 
     if (env[0] == NULL || !all)
         return 84;
@@ -58,8 +63,7 @@ int open_shell(char **env)
         all->exe = line_separator(all->exe);
         if (get_command_from_list(all) == 1)
             return 0;
-        while (*all->rules)
-            free(*all->rules++);
-        free(all->exe);
+        while (all->rules[i])
+            free(all->rules[i++]);
     }
 }
