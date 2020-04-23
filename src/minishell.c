@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <stdio.h>
+#include <errno.h>
 #include "minishell.h"
 
 char *without_exec(char *str)
@@ -34,6 +35,13 @@ char *without_exec(char *str)
 int exe_right(all_t *all, int i)
 {
     if ((execve(all->path_exe, all->rules, all->envcpy) > 0) && i == 6) {
+        if (errno == EACCES) {
+            my_putstr(all->rules[0]);
+            my_putstr(": Permission denied.\n");
+        } else if (errno == 8) {
+            my_putstr(all->rules[0]);
+            my_putstr(": Exec format error. Wrong Architecture.\n");
+        }
         return 1;
     }
     return 0;
@@ -43,10 +51,17 @@ int exec_prg(all_t *all)
 {
     if (my_strncmp(all->exe, "./", 2) == 0) {
         all->rules[0] = without_exec(all->rules[0]);
-        if (execve(all->rules[0], all->rules, all->envcpy) < 0) {
-            my_puterror("./", all->rules[0]);
-            my_puterror(": ", "Permission denied.\n");
-            return (1);
+        if (execve(all->rules[0], all->rules, all->envcpy) == -1) {
+            if (errno == EACCES) {
+                my_putchar('./');
+                my_putstr(all->rules[0]);
+                my_putstr(": Permission denied.\n");
+            } else if (errno == 8) {
+                my_putchar('./');
+                my_putstr(all->rules[0]);
+                my_putstr(": Exec format error. Wrong Architecture.\n");
+            }
+            return 1;
         }
         return (0);
     }

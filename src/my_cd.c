@@ -83,11 +83,11 @@ int principal_cd(all_t *all, int *passed)
         in = 1;
         if (errno == ENOENT) {
             my_putstr(all->rules[1]);
-            my_putstr(": No such file or directory\n");
+            my_putstr(": No such file or directory.\n");
         }
         if (errno == ENOTDIR) {
             my_putstr(all->rules[1]);
-            my_putstr(": Not a directory\n");
+            my_putstr(": Not a directory.\n");
         }
         if (errno == EACCES)
             my_putstr("error: Permission denied.\n");
