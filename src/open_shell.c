@@ -20,10 +20,6 @@ int cmd_check(all_t *all)
         exit(0);
     } else if (my_strncmp("env", all->rules[0], 3) == 0)
         print_env(all);
-    else if (my_strncmp("setenv", all->rules[0], 6) == 0)
-        all->envcpy = set_env(all);
-    else if (my_strncmp("unsetenv", all->rules[0], 8) == 0)
-        all->envcpy = unset_env(all);
     else
         minishell(all);
     return (0);
